@@ -19,13 +19,13 @@
                 <tbody>
                     <% for( let i = 0; i < category.length; i++ ) { %>
                     <tr>
-                        <td><%- i + 1 %> </td>
-                        <td><%- category[i].name %> </td>
+                        <td><%= i + 1 %> </td>
+                        <td><%= category[i].name %> </td>
                         <td class="d-flex justify-content-center">
-                            <form action="/admin/category/<%- category[i].id %>?_method=DELETE" method="POST">
+                            <form action="/admin/category/<%= category[i].id %>?_method=DELETE" method="POST">
                                 <a href="javascript:void()" type="button"
                                     class="btn btn-warning btn-circle btn-sm mr-3 button-update"
-                                    data-id="<%- category[i].id %>" data-name="<%- category[i].name %>"><i
+                                    data-id="<%= category[i].id %>" data-name="<%= category[i].name %>"><i
                                         class="fas fa-edit"></i></a>
                                 <button type="submit" class="btn btn-danger btn-circle btn-sm"><i
                                         class="fas fa-trash"></i></button>

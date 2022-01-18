@@ -50,9 +50,10 @@
                                             action="/admin/item/<%= itemId %>/feature/<%= feature[i].id %>?_method=DELETE"
                                             method="POST">
                                             <a href="javascript:void()" type="button"
-                                                class="btn btn-warning btn-circle btn-sm mr-3 button-update"
+                                                class="btn btn-warning btn-circle btn-sm mr-3 button-update-feature"
                                                 data-id="<%= feature[i].id %>" data-name="<%= feature[i].name %>"
-                                                data-qty="<%= feature[i].qty %>">
+                                                data-qty="<%= feature[i].qty %>" data-toggle="modal"
+                                                data-target="#editModalFeature">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm"><i

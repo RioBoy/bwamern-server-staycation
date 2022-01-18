@@ -328,21 +328,35 @@ module.exports = {
   deleteItem: async (req, res) => {
     try {
       const { id } = req.params;
-      const item = await Item.findOne({ _id: id }).populate({
-        path: 'imageId',
-        select: 'id imageUrl',
-      });
+      const item = await Item.findOne({ _id: id })
+        .populate({
+          path: 'imageId',
+          select: 'id imageUrl',
+        })
+        .populate({
+          path: 'categoryId',
+          select: 'id itemId',
+        });
+
+      //ambil category berdasarkan itemId
+      const category = await Category.findOne({ _id: item.categoryId._id });
       for (let i = 0; i < item.imageId.length; i++) {
-        Image.findOne({ _id: item.imageId[i]._id })
-          .then(async (image) => {
-            await fs.unlink(path.join(`public/${image.imageUrl}`));
-            await image.remove();
-          })
-          .catch((error) => {
-            req.flash('alertMessage', `${error.message}`);
-            req.flash('alertStatus', 'danger');
-            res.redirect('/admin/item');
-          });
+        // cek jika _id di item sama dengan itemId di category
+        if (item.categoryId._id.toString() === category.id.toString()) {
+          Image.findOne({ _id: item.imageId[i]._id })
+            .then(async (image) => {
+              await fs.unlink(path.join(`public/${image.imageUrl}`));
+              await image.remove();
+            })
+            .catch((error) => {
+              req.flash('alertMessage', `${error.message}`);
+              req.flash('alertStatus', 'danger');
+              res.redirect('/admin/item');
+            });
+          // hapus itemId dari item di category
+          category.itemId.pull({ _id: item._id });
+          await category.save();
+        }
       }
       await item.remove();
       req.flash('alertMessage', 'Success Delete Item');

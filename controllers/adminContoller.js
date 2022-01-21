@@ -59,7 +59,13 @@ module.exports = {
 
   actionLogout: async (req, res) => {
     req.session.destroy();
-    res.redirect('/admin/signin');
+    res.render('index', {
+      title: 'Staycation | Login',
+      alert: {
+        message: 'You have been logout',
+        status: 'success',
+      },
+    });
   },
 
   viewDashboard: async (req, res) => {
@@ -73,6 +79,7 @@ module.exports = {
         member,
         booking,
         item,
+        active: 'dashboard',
       });
     } catch (error) {
       res.redirect('/admin/dashboard');
@@ -90,6 +97,7 @@ module.exports = {
         alert,
         title: 'Staycation | Category',
         user: req.session.user,
+        active: 'category',
       });
     } catch (error) {
       res.render('admin/category/view_category');
@@ -153,6 +161,7 @@ module.exports = {
         alert,
         bank,
         user: req.session.user,
+        active: 'bank',
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -251,6 +260,7 @@ module.exports = {
         item,
         action: 'view',
         user: req.session.user,
+        active: 'item',
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -308,6 +318,7 @@ module.exports = {
         item,
         action: 'show image',
         user: req.session.user,
+        active: 'item',
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -339,6 +350,7 @@ module.exports = {
         category,
         action: 'edit',
         user: req.session.user,
+        active: 'item',
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -455,6 +467,7 @@ module.exports = {
         feature,
         activity,
         user: req.session.user,
+        active: 'item',
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -638,6 +651,7 @@ module.exports = {
         title: 'Staycation | Booking',
         user: req.session.user,
         booking,
+        active: 'booking',
       });
     } catch (error) {
       res.redirect('/admin/booking');
@@ -658,6 +672,7 @@ module.exports = {
         user: req.session.user,
         booking,
         alert,
+        active: 'booking',
       });
     } catch (error) {
       res.redirect('/admin/booking');

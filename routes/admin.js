@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const adminController = require('../controllers/adminContoller');
+const adminController = require('../controllers/adminController');
 const { upload, uploadMultiple } = require('../middleware/multer');
 const auth = require('../middleware/auth');
 

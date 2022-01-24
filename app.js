@@ -6,6 +6,7 @@ var logger = require('morgan');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const date = new Date();
 
 // import mongoose
 const mongoose = require('mongoose');
@@ -37,7 +38,10 @@ app.use(
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 },
+    cookie: {
+      // maxAge: 60000, // cookie default
+      maxAge: date.setDate(date.getDate() + 1), // set cookie for 1 day
+    },
   }),
 );
 app.use(flash());

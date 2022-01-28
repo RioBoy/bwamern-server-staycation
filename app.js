@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
 const date = new Date();
+const cors = require('cors');
 
 // import mongoose
 const mongoose = require('mongoose');
@@ -59,6 +60,9 @@ app.use(
     path.join(__dirname, 'node_modules/startbootstrap-sb-admin-2'),
   ),
 );
+
+// cors for front-end fetch-api
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
